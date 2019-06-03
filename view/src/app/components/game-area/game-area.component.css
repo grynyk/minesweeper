@@ -1,0 +1,16 @@
+.box {
+    padding: 5px;
+    background: #683e3e;
+    display: inline-block;
+    color: #fff;
+    box-shadow: 0 0 7px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+.box:hover{
+    background-color: #5e3737;
+}
+
+.box.checked {
+    background: rgb(103, 162, 37);
+}

@@ -6,15 +6,15 @@ export class GameService {
 
 	public xCount: number = 10;
 	public yCount: number = 10;
-
+	public bombsNumber: number = 10;
 	public area: Box[][];
 
-	constructor () {
+	constructor() {
 		this.initialize();
 	}
 
 
-	public reveal (x: number, y: number) {
+	public reveal(x: number, y: number) {
 		if (this.area[y][x].hasBomb) {
 			alert("You stepped on a mine, game over!");
 			this.initialize();
@@ -26,17 +26,26 @@ export class GameService {
 		}
 	}
 
-	private initialize () {
+	private initialize() {
 		this.area = [];
-		
+		let counter = 0;
+		let rb;
 		for (let y = 0; y < this.yCount; y++) {
 			this.area[y] = [];
 			for (let x = 0; x < this.xCount; x++) {
-				this.area[y][x] = new Box(this.randomBool());
+				rb = this.randomBool();
+				if(rb) {
+					counter++;
+				}
+				if(counter > this.bombsNumber) {
+					rb = false;
+				}
+				console.log(counter);
+				this.area[y][x] = new Box(rb);
 				this.area[y][x].neighbors = 0;
 			}
 		}
-		// add neighbors information
+
 		for (let y = 0; y < this.yCount; y++) {
 			for (let x = 0; x < this.xCount; x++) {
 				this.area[y][x].neighbors = this.countNeighbors(x, y);
@@ -44,18 +53,18 @@ export class GameService {
 		}
 	}
 
-	private randomBool (): boolean {
+	private randomBool(): boolean {
 		return Math.random() > 0.9;
 	}
 
-	private countNeighbors (x: number, y: number): number {
+	private countNeighbors(x: number, y: number): number {
 		return this.getValidNeighbors(x, y)
 			.map(arr => this.area[arr[1]][arr[0]])
 			.filter(box => box.hasBomb)
 			.length;
 	}
 
-	private getValidNeighbors (x: number, y: number): number[][] {
+	private getValidNeighbors(x: number, y: number): number[][] {
 		const result: number[][] = [];
 		if (this.area[y][x - 1]) { result.push([x - 1, y]); }
 		if (this.area[y][x + 1]) { result.push([x + 1, y]); }
@@ -74,26 +83,26 @@ export class GameService {
 		return result;
 	}
 
-	private automaticallyCheckNeighbors (x: number, y: number): void {
+	private automaticallyCheckNeighbors(x: number, y: number): void {
 		this.getValidNeighbors(x, y).filter(cords => !this.area[cords[1]][cords[0]].hasBomb)
-		.forEach(cords => {
-			this.area[cords[1]][cords[0]].checked = true;
-		});
+			.forEach(cords => {
+				this.area[cords[1]][cords[0]].checked = true;
+			});
 	}
 
-	get checked (): number {
-		return this.area.map(ySet => ySet.filter(box => box.checked).length).reduce((total, next) => total + next , 0);
+	get checked(): number {
+		return this.area.map(ySet => ySet.filter(box => box.checked).length).reduce((total, next) => total + next, 0);
 	}
 
-	get shouldBeChecked (): number {
-		return this.area.map(ySet => ySet.filter(box => !box.hasBomb).length).reduce((total, next) => total + next , 0);
+	get shouldBeChecked(): number {
+		return this.area.map(ySet => ySet.filter(box => !box.hasBomb).length).reduce((total, next) => total + next, 0);
 	}
 
-	get leftToBeChecked (): number {
+	get leftToBeChecked(): number {
 		return this.shouldBeChecked - this.checked;
 	}
 
-	get bombsCount (): number {
+	get bombsCount(): number {
 		return (this.yCount * this.xCount) - this.shouldBeChecked;
 	}
 }

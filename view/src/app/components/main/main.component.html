@@ -1,0 +1,57 @@
+<mat-card class="body-container">
+	<mat-card-header class="header-container" fxLayout="row">
+		<span class="title" fxLayoutAlign="start center" routerLink="/">MINESWEEPER</span>
+		<div fxFlex fxLayoutAlign="end center">
+			<ul fxLayout fxLayoutGap="10px" class="header-items">
+				<li (click)="openProfile()">
+					<span fxLayoutAlign="none center" style="text-transform: uppercase">
+						<i class="material-icons">
+							account_circle
+						</i>
+						{{username}}
+					</span>
+				</li>
+				<li routerLink="/login">
+					<span fxLayoutAlign="none center">
+						<i class="material-icons">
+							exit_to_app
+						</i>
+						LOGOUT
+					</span>
+				</li>
+			</ul>
+		</div>
+	</mat-card-header>
+
+	<mat-card-content class="content-container">
+		<div fxLayout="column" class="info" fxLayoutAlign="center center">
+			<span>There are {{game.bombsCount}} bombs</span>
+			<span>Checked cells: {{game.checked}}</span>
+		</div>
+		<div *ngFor="let set of game.area; let y = index">
+			<app-game-area *ngFor="let item of set; let x = index" [x]="x" [y]="y" [checked]="item.checked" [hasBomb]="item.hasBomb"
+			 [neighbors]="item.neighbors"></app-game-area>
+		</div>
+	</mat-card-content>
+	<div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
+
+		<mat-form-field appearance="outline">
+			<mat-label>COLUMNS</mat-label>
+			<input matInput placeholder="Input" [(ngModel)]="game.xCount">
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>ROWS</mat-label>
+			<input matInput placeholder="Input" [(ngModel)]="game.yCount">
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+				<mat-label>BOMBS</mat-label>
+				<input matInput placeholder="Input" [(ngModel)]="game.bombsNumber">
+			</mat-form-field>
+
+		<button mat-raised-button (click)="game.initialize()" class="refresh-btn">
+			<mat-icon>play_circle_outline</mat-icon> NEW GAME
+		</button>
+	</div>
+</mat-card>

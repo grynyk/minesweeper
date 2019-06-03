@@ -1,0 +1,8 @@
+<span class="box" [class.checked]="checked" (click)="game.reveal(x,y)">
+	<span *ngIf="checked">
+		&nbsp;{{neighbors}}&nbsp;
+	</span>
+	<span *ngIf="!checked">
+		&nbsp;&nbsp;&nbsp;&nbsp;
+	</span>
+</span>

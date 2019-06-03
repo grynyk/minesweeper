@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import db from '../index';
 
 const Middleware = {
 
@@ -32,7 +33,6 @@ const Middleware = {
       if (!rows[0]) {
         return res.status(400).send({ 'message': 'The token you provided is invalid' });
       }
-
       req.user = rows[0];
       next();
     } catch (error) {

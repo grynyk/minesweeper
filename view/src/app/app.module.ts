@@ -10,6 +10,7 @@ import { MatInputModule, MatButtonModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
@@ -20,10 +21,12 @@ import { GameService } from './services/game.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 import { PasswordMatcherDirective } from './directives/password-match.directive';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ErrorDialogComponent } from './components/modals/error-dialog/error-dialog.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +35,8 @@ import { PasswordMatcherDirective } from './directives/password-match.directive'
     GameAreaComponent,
     MainComponent,
     Page404Component,
-    PasswordMatcherDirective
+    PasswordMatcherDirective,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -42,18 +46,28 @@ import { PasswordMatcherDirective } from './directives/password-match.directive'
     MatInputModule,
     ReactiveFormsModule,
     AppRouting,
+    MatToolbarModule,
     MatFormFieldModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     MatIconModule,
     MatButtonModule,
     FlexLayoutModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
     GameService,
     AuthGuard,
     AuthService,
     UsersService
+  ],
+  entryComponents: [
+    ErrorDialogComponent
   ],
   bootstrap: [AppComponent]
 })
