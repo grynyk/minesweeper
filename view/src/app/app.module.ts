@@ -25,8 +25,11 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 import { PasswordMatcherDirective } from './directives/password-match.directive';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ErrorDialogComponent } from './components/modals/error-dialog/error-dialog.component';
+import { NotificationDialogComponent } from './components/modals/notification-dialog/notification-dialog.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { RecordsService } from './services/records.service';
+import {MatTableModule} from '@angular/material/table';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     MainComponent,
     Page404Component,
     PasswordMatcherDirective,
-    ErrorDialogComponent
+    NotificationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     AppRouting,
     MatToolbarModule,
     MatFormFieldModule,
+    MatTableModule,
     MatCardModule,
     MatProgressSpinnerModule,
     MatDialogModule,
@@ -62,12 +66,13 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
       multi: true
     },
     GameService,
+    RecordsService,
     AuthGuard,
     AuthService,
     UsersService
   ],
   entryComponents: [
-    ErrorDialogComponent
+    NotificationDialogComponent
   ],
   bootstrap: [AppComponent]
 })

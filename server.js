@@ -15,8 +15,8 @@ app.post('/api/users/register', Users.createUser);
 app.post('/api/users/login', Users.login);
 app.get('/api/users/getMyData', Middleware.verifyToken, Users.getMyData);
 
-app.post('/api/game/records', Game.createRecord);
-app.get('/api/game/records', Game.getAll);
+app.post('/api/game/records', Middleware.verifyToken, Game.createRecord);
+app.get('/api/game/records', Middleware.verifyToken, Game.getAll);
 
 app.get('/', (req, res) => {
   return res.status(200).send({ 'message': 'Welcome to Minesweeper game' });

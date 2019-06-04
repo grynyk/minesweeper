@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, DoCheck } from '@angular/core';
 import { GameService } from '../../services/game.service';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -10,15 +11,21 @@ import { User } from '../../models/user';
 })
 export class MainComponent implements OnInit {
 
-  username:string;
+  showBombsFlag: boolean = false;
+  user:Observable<User>;
   
-  constructor(public game: GameService, private userService: UsersService) { }
+  constructor(public game: GameService, private userService: UsersService) {
+    this.user = userService.getMyData();
+  }
 
   ngOnInit() {
-    this.userService.getMyData().subscribe((user:User)=>{
-      console.log(user);
-      this.username = user.username;
+    this.game.gameEnded.subscribe((result:boolean) => {
+        this.user = this.userService.getMyData();
     });
+  }
+
+  showBombs() {
+    this.showBombsFlag = !this.showBombsFlag;
   }
 
 }

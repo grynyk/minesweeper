@@ -8,7 +8,6 @@
 
 .header-items{
     list-style: none;
-    cursor: pointer;
 }
 
 .title {
@@ -29,7 +28,8 @@
     border-right: 1px dashed #aeaeae;
 }
 
-.header-items li:hover{
+.header-items li[routerLink]:hover{
+    cursor: pointer;
     color: rgba(255,255,255,0.8);
 }
 
@@ -58,5 +58,13 @@
     margin-top:4px;
     padding:12px;
     background-color:#0f9b0f;
+    color: #fff;
+}
+
+.xyzzy-btn{
+    margin-top:10px;
+    min-width:1%;
+    font-size:0.8em;
+    background: rgb(255, 0, 0, 0.5);
     color: #fff;
 }

@@ -1,4 +1,4 @@
-<span class="box" [class.checked]="checked" (click)="game.reveal(x,y)">
+<span class="box" [class.checked]="checked" (click)="revealGame(x,y)" [style.backgroundColor]="hasBomb && showBombs ? '#4F2525' :''">
 	<span *ngIf="checked">
 		&nbsp;{{neighbors}}&nbsp;
 	</span>

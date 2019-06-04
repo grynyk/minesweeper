@@ -6,26 +6,36 @@ import Middleware from './Middleware';
 const Game = {
     async getAll(req, res) {
         try {
-            const { rows, rowCount } = await db.query('SELECT * FROM game_results ORDER BY created_date DESC');
+            const { rows, rowCount } = await db.query('SELECT * FROM game_results WHERE user_id = $1 ORDER BY created_date DESC', [req.user.id]);
             return res.status(200).send({ rows, rowCount });
         } catch (error) {
             return res.status(400).send(error);
         }
     },
     async createRecord(req, res) {
-        const createQuery = `INSERT INTO
-      game_results(id, created_date, result, user_id, dimensions)
-      VALUES($1, $2, $3, $4, $5)
-      returning *`;
-        const values = [
-            uuid.v4(),
-            moment(new Date()),
-            req.body.result,
-            req.params.user_id,
-            req.dimensions.result,
-        ];
         try {
-            const { rows } = await db.query(createQuery, values);
+            await db.query(`INSERT INTO
+            game_results(id, created_date, win, user_id, dimensions, checked)
+            VALUES($1, $2, $3, $4, $5, $6)
+            returning *`, [
+                uuid.v4(),
+                moment(new Date()),
+                req.body.win,
+                req.user.id,
+                req.body.dimensions,
+                req.body.checked,
+            ]);
+
+            if(req.body.win) {
+                await db.query(`UPDATE users
+                SET wins = wins + 1
+                WHERE id = $1;`, [req.user.id]);
+            } else {
+                await db.query(`UPDATE users
+                SET losts = losts + 1
+                WHERE id = $1;`, [req.user.id]);
+            }
+
             return res.status(201).send({ 'message': 'Record created successfully' });
         } catch (error) {
             return res.status(400).send(error);

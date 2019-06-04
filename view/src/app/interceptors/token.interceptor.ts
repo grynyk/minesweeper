@@ -11,11 +11,10 @@ import { MatDialog } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ErrorDialogComponent } from '../components/modals/error-dialog/error-dialog.component';
+import { NotificationDialogComponent } from '../components/modals/notification-dialog/notification-dialog.component';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public authService: AuthService, private router: Router,public dialog: MatDialog,
-    private injector: Injector) { }
+  constructor(public authService: AuthService, private router: Router,public dialog: MatDialog) { }
 
   errorAppeared = false;
   private handleError(err: HttpErrorResponse): Observable<any> {
@@ -25,9 +24,9 @@ export class TokenInterceptor implements HttpInterceptor {
       if(err.status!==201){
         if(this.errorAppeared==false){
           this.errorAppeared = true;
-          const dialogRef = this.dialog.open(ErrorDialogComponent, {
+          const dialogRef = this.dialog.open(NotificationDialogComponent, {
             width: '500px',
-            data: { title: err.error.name || err.error.message , message: 'Unable to send request, try again please', button:'OK' }
+            data: { title: err.error.name || err.error.message , message: 'Unable to send request, try again please', button:'CLOSE' }
           });
         }
       }

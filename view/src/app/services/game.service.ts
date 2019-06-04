@@ -1,34 +1,40 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Box } from "../models/box";
-import { throwError } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { NotificationDialogComponent } from '../components/modals/notification-dialog/notification-dialog.component';
+import { RecordsService } from './records.service';
+import { Record } from '../models/record';
 
 @Injectable()
 export class GameService {
 
-	public xCount: number = 0;
-	public yCount: number = 0;
-	public bombsCount: number = 0;
+	public xCount: number = 10;
+	public yCount: number = 10;
+	public bombsCount: number = 25;
 	public area: Box[][];
 	randomNumbers = [];
 
-	constructor() {
+	constructor(public dialog: MatDialog) {
 		this.initialize();
 	}
 
-
+	gameEnded = new EventEmitter(false);
 	public reveal(x: number, y: number) {
 		if (this.area[y][x].hasBomb) {
-			alert("You stepped on a mine, game over!");
-			this.initialize();
+			this.gameEnded.emit(true);
+			return false;
 		}
 		else {
 			this.area[y][x].checked = true;
 			this.automaticallyCheckNeighbors(x, y);
-			if (this.leftToBeChecked === 0) { alert("You won!"); }
+			if (this.leftToBeChecked === 0) {
+				this.gameEnded.emit(true);
+				return true;
+			}
 		}
 	}
 
-	private initialize() {
+	public initialize() {
 		this.area = [];
 		this.randomNumbers = [];
 		try {
@@ -53,17 +59,20 @@ export class GameService {
 							this.area[y][x].neighbors = this.countNeighbors(x, y);
 						}
 					}
-					
+
 				} else {
-					throwError("ERROR! Too much bombs for your gameboard")
+					throw("Too much bombs for your gameboard");
 				}
 				
 			} else {
-				throwError("ERROR! Gameboard should be at least 2x2 and at most 10x10")
+				throw("Gameboard should be at least 2x2 and at most 10x10");
 			}
 		  }
-		  catch(e) {
-			console.log(e);
+		  catch(err) {
+			const dialogRef = this.dialog.open(NotificationDialogComponent, {
+				width: '500px',
+				data: { title: "ERROR" , message: err, button:'CLOSE' }
+			  });
 		  }
 
 

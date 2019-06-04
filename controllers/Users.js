@@ -19,14 +19,16 @@ const Users = {
     const hashPassword = Middleware.hashPassword(req.body.password);
 
     const createQuery = `INSERT INTO
-      users(id, username, password, created_date)
-      VALUES($1, $2, $3, $4)
+      users(id, username, password, created_date, wins, losts)
+      VALUES($1, $2, $3, $4, $5, $6)
       returning *`;
     const values = [
       uuid.v4(),
       req.body.username,
       hashPassword,
-      moment(new Date())
+      moment(new Date()),
+      0,
+      0
     ];
     try {
       const { rows } = await db.query(createQuery, values);
