@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Box } from "../models/box";
+import { throwError } from 'rxjs';
 
 @Injectable()
 export class GameService {
 
-	public xCount: number = 10;
-	public yCount: number = 10;
-	public bombsNumber: number = 10;
+	public xCount: number = 0;
+	public yCount: number = 0;
+	public bombsCount: number = 0;
 	public area: Box[][];
+	randomNumbers = [];
 
 	constructor() {
 		this.initialize();
@@ -28,33 +30,52 @@ export class GameService {
 
 	private initialize() {
 		this.area = [];
-		let counter = 0;
-		let rb;
-		for (let y = 0; y < this.yCount; y++) {
-			this.area[y] = [];
-			for (let x = 0; x < this.xCount; x++) {
-				rb = this.randomBool();
-				if(rb) {
-					counter++;
-				}
-				if(counter > this.bombsNumber) {
-					rb = false;
-				}
-				console.log(counter);
-				this.area[y][x] = new Box(rb);
-				this.area[y][x].neighbors = 0;
-			}
-		}
+		this.randomNumbers = [];
+		try {
+			if ((this.xCount > 1 && this.yCount > 1) && (this.xCount <= 10 && this.yCount <= 10)) {
+				if(this.bombsCount <= (this.yCount * this.xCount) - this.shouldBeChecked) {
+					for (let y = 0; y < this.yCount; y++) {
+						this.area[y] = [];
+						for (let x = 0; x < this.xCount; x++) {
+							this.area[y][x] = new Box(false);
+							this.area[y][x].neighbors = 0;
+						}
+					}
 
-		for (let y = 0; y < this.yCount; y++) {
-			for (let x = 0; x < this.xCount; x++) {
-				this.area[y][x].neighbors = this.countNeighbors(x, y);
+					for (let i = 0; i < this.bombsCount; i++) {
+						const rand1 = Math.floor(Math.random() * this.area.length);
+						const rand2 = Math.floor(Math.random() * this.area.length);
+						this.fillWithBombs(rand1, rand2)
+					}
+
+					for (let y = 0; y < this.yCount; y++) {
+						for (let x = 0; x < this.xCount; x++) {
+							this.area[y][x].neighbors = this.countNeighbors(x, y);
+						}
+					}
+					
+				} else {
+					throwError("ERROR! Too much bombs for your gameboard")
+				}
+				
+			} else {
+				throwError("ERROR! Gameboard should be at least 2x2 and at most 10x10")
 			}
-		}
+		  }
+		  catch(e) {
+			console.log(e);
+		  }
+
+
 	}
 
-	private randomBool(): boolean {
-		return Math.random() > 0.9;
+	private fillWithBombs(rand1, rand2) {
+		if (JSON.stringify(this.randomNumbers).indexOf(JSON.stringify([rand1, rand2])) === -1) {
+			this.randomNumbers.push([rand1, rand2]);
+			return this.area[rand1][rand2] = new Box(true);;
+		} else {
+			this.fillWithBombs(Math.floor(Math.random() * this.area.length), Math.floor(Math.random() * this.area.length))
+		}
 	}
 
 	private countNeighbors(x: number, y: number): number {
@@ -102,7 +123,7 @@ export class GameService {
 		return this.shouldBeChecked - this.checked;
 	}
 
-	get bombsCount(): number {
-		return (this.yCount * this.xCount) - this.shouldBeChecked;
-	}
+	// get bombsCount(): number {
+	// 	return (this.yCount * this.xCount) - this.shouldBeChecked;
+	// }
 }
