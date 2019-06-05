@@ -1,12 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { AppComponent } from './app.component';
 import { AppRouting } from './app.routing';
-
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatInputModule, MatButtonModule } from '@angular/material';
+import { MatInputModule, MatButtonModule, MatTooltipModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -28,7 +26,11 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NotificationDialogComponent } from './components/modals/notification-dialog/notification-dialog.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { RecordsService } from './services/records.service';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { RecordsComponent } from './components/records/records.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { ContentDialogComponent } from './components/modals/content-dialog/content-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import {MatTableModule} from '@angular/material/table';
     Page404Component,
     PasswordMatcherDirective,
     NotificationDialogComponent,
+    RecordsComponent,
+    ContentDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,9 @@ import {MatTableModule} from '@angular/material/table';
     ReactiveFormsModule,
     AppRouting,
     MatToolbarModule,
+    MatTooltipModule,
+    MatSortModule,
+    MatPaginatorModule,
     MatFormFieldModule,
     MatTableModule,
     MatCardModule,
@@ -72,6 +79,7 @@ import {MatTableModule} from '@angular/material/table';
     UsersService
   ],
   entryComponents: [
+    ContentDialogComponent,
     NotificationDialogComponent
   ],
   bootstrap: [AppComponent]

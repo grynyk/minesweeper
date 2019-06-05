@@ -1,9 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef, DoCheck } from '@angular/core';
+import { MatDialog } from '@angular/material';
 import { GameService } from '../../services/game.service';
 import { UsersService } from '../../services/users.service';
 import { User } from '../../models/user';
 import { Observable } from 'rxjs';
-
+import { ContentDialogComponent } from '../modals/content-dialog/content-dialog.component';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -14,7 +15,7 @@ export class MainComponent implements OnInit {
   showBombsFlag: boolean = false;
   user:Observable<User>;
   
-  constructor(public game: GameService, private userService: UsersService) {
+  constructor(public game: GameService, private userService: UsersService, public dialog: MatDialog) {
     this.user = userService.getMyData();
   }
 
@@ -26,6 +27,13 @@ export class MainComponent implements OnInit {
 
   showBombs() {
     this.showBombsFlag = !this.showBombsFlag;
+  }
+
+  openRecords() {
+    this.dialog.open(ContentDialogComponent, {
+      width: '800px',
+      data: { title: "RESULTS HISTORY", button: 'CLOSE' }
+    });
   }
 
 }

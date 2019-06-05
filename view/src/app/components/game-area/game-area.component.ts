@@ -19,7 +19,6 @@ export class GameAreaComponent {
 	@Input() hasBomb: boolean;
 	@Input() neighbors: number;
 	@Input() showBombs: boolean = false;
-	@Input() checkedCells: number;
 
 	constructor(public game: GameService, 
 		private recordService: RecordsService,
@@ -27,17 +26,16 @@ export class GameAreaComponent {
 		public dialog: MatDialog) { }
 
 	revealGame(x, y) {
-		let dialogRef;
 		let record: Record;
 		if (this.game.reveal(x, y) === true) {
-			dialogRef = this.dialog.open(NotificationDialogComponent, {
+			this.dialog.open(NotificationDialogComponent, {
 				width: '500px',
 				data: { title: "YOU WON", message: "Game finished!", button: 'CLOSE' }
 			});
 			record = {
 				win: true,
 				dimensions: `${this.x}x${this.y}`,
-				checked: this.checkedCells
+				checked: this.game.checked
 			}
 			this.recordService.createRecord(record).subscribe(res => {
 				console.log(res);
@@ -45,14 +43,14 @@ export class GameAreaComponent {
 		}
 
 		if (this.game.reveal(x, y) === false) {
-			dialogRef = this.dialog.open(NotificationDialogComponent, {
+			this.dialog.open(NotificationDialogComponent, {
 				width: '500px',
 				data: { title: "GAME OVER", message: "You stepped on a mine!", button: 'CLOSE' }
 			});
 			record = {
 				win: false,
 				dimensions: `${this.x}x${this.y}`,
-				checked: this.checkedCells
+				checked: this.game.checked
 			}
 			this.recordService.createRecord(record).subscribe(res => {
 				console.log(res);

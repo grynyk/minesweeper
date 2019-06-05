@@ -131,8 +131,4 @@ export class GameService {
 	get leftToBeChecked(): number {
 		return this.shouldBeChecked - this.checked;
 	}
-
-	// get bombsCount(): number {
-	// 	return (this.yCount * this.xCount) - this.shouldBeChecked;
-	// }
 }

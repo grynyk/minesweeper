@@ -28,7 +28,7 @@
     border-right: 1px dashed #aeaeae;
 }
 
-.header-items li[routerLink]:hover{
+.header-items li[link]:hover{
     cursor: pointer;
     color: rgba(255,255,255,0.8);
 }
@@ -41,8 +41,11 @@
 
 .content-container{
     margin-top:25px;
-    margin-bottom:50px;
     text-align:center;
+}
+
+.game-config-container {
+     margin-top:50px;
 }
 
 .info {
@@ -54,9 +57,10 @@
     margin-right:10px;
 }
 
-.refresh-btn{
+.newgame-btn{
     margin-top:4px;
-    padding:12px;
+    margin-bottom:10px;
+    padding:7px;
     background-color:#0f9b0f;
     color: #fff;
 }

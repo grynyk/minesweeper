@@ -11,7 +11,7 @@
 						{{(user | async)?.username}}
 					</span>
 				</li>
-				<li>
+				<li link (click)="openRecords()" matTooltip="RESULTS HISTORY">
 					<span fxLayoutAlign="none center">
 						<i class="material-icons">
 							whatshot
@@ -19,12 +19,11 @@
 						WINS: {{(user | async)?.wins}} | LOSTS: {{(user | async)?.losts}} 
 					</span>
 				</li>
-				<li routerLink="/login">
+				<li link routerLink="/login" matTooltip="LOGOUT">
 					<span fxLayoutAlign="none center">
 						<i class="material-icons">
 							exit_to_app
 						</i>
-						LOGOUT
 					</span>
 				</li>
 			</ul>
@@ -32,39 +31,38 @@
 	</mat-card-header>
 
 	<mat-card-content class="content-container">
-		<div fxLayout="column" class="info" fxLayoutAlign="center center">
-			<span>There are {{game.bombsCount}} bombs</span>
-			<span>Checked cells: {{game.checked}}</span>
-		</div>
-		<div *ngFor="let set of game.area; let y = index">
-			<app-game-area *ngFor="let item of set; let x = index" [x]="x" [y]="y" [checked]="item.checked" [hasBomb]="item.hasBomb" [showBombs]="showBombsFlag" [checkedCells]="game.checked"
-			 [neighbors]="item.neighbors"></app-game-area>
-		</div>
-
-		<button mat-button class="xyzzy-btn" [style.backgroundColor]="showBombsFlag ? 'rgb(0, 255, 0, 0.5)' :'rgb(255, 0, 0, 0.5)'" (click)="showBombs()" [disabled]="game.xCount > 10 || game.yCount > 10">
-			xyzzy
-		</button>
-
+				<div fxLayout="column" class="info" fxLayoutAlign="center center">
+						<span>There are {{game.bombsCount}} bombs</span>
+						<span>Checked cells: {{game.checked}}</span>
+					</div>
+					<div *ngFor="let set of game.area; let y = index">
+						<app-game-area *ngFor="let item of set; let x = index" [x]="x" [y]="y" [checked]="item.checked" [hasBomb]="item.hasBomb" [showBombs]="showBombsFlag"
+						 [neighbors]="item.neighbors"></app-game-area>
+					</div>
+			
+					<button mat-button class="xyzzy-btn" [style.backgroundColor]="showBombsFlag ? 'rgb(255, 0, 0, 0.5)' :'rgb(0, 0, 0, 0.5)'" (click)="showBombs()" [disabled]="game.xCount > 10 || game.yCount > 10">
+						xyzzy
+					</button>
+					<div class="game-config-container" fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
+			
+							<mat-form-field appearance="outline">
+								<mat-label>COLUMNS</mat-label>
+								<input matInput placeholder="Input" [(ngModel)]="game.xCount">
+							</mat-form-field>
+					
+							<mat-form-field appearance="outline">
+								<mat-label>ROWS</mat-label>
+								<input matInput placeholder="Input" [(ngModel)]="game.yCount">
+							</mat-form-field>
+					
+							<mat-form-field appearance="outline">
+									<mat-label>BOMBS</mat-label>
+									<input matInput placeholder="Input" [(ngModel)]="game.bombsCount">
+								</mat-form-field>
+					
+							<button mat-raised-button (click)="game.initialize()" class="newgame-btn" [disabled]="game.xCount > 10 || game.yCount > 10">
+								<mat-icon>play_circle_outline</mat-icon> NEW GAME
+							</button>
+						</div>
 	</mat-card-content>
-	<div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
-
-		<mat-form-field appearance="outline">
-			<mat-label>COLUMNS</mat-label>
-			<input matInput placeholder="Input" [(ngModel)]="game.xCount">
-		</mat-form-field>
-
-		<mat-form-field appearance="outline">
-			<mat-label>ROWS</mat-label>
-			<input matInput placeholder="Input" [(ngModel)]="game.yCount">
-		</mat-form-field>
-
-		<mat-form-field appearance="outline">
-				<mat-label>BOMBS</mat-label>
-				<input matInput placeholder="Input" [(ngModel)]="game.bombsCount">
-			</mat-form-field>
-
-		<button mat-raised-button (click)="game.initialize()" class="refresh-btn" [disabled]="game.xCount > 10 || game.yCount > 10">
-			<mat-icon>play_circle_outline</mat-icon> NEW GAME
-		</button>
-	</div>
 </mat-card>
