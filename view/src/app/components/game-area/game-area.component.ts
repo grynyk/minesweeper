@@ -11,7 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
 	templateUrl: './game-area.component.html',
 	styleUrls: ['./game-area.component.css']
 })
-export class GameAreaComponent {
+export class GameAreaComponent implements OnInit {
 	@Input() x: number;
 	@Input() y: number;
 
@@ -28,6 +28,10 @@ export class GameAreaComponent {
 		private recordService: RecordsService,
 		private userService: UsersService,
 		public dialog: MatDialog) { }
+
+		ngOnInit() {
+			// asd
+		}
 
 	markCell(x, y) {
 		if(!this.gameService.area[y][x].marked) {
@@ -91,16 +95,19 @@ export class GameAreaComponent {
 		if (this.gameService.area[y][x].hasBomb) {
 			this.gameService.area[y][x].checked = true;
 			if (+this.gameService.bombsCount === +this.gameService.bombsModeCounter) {
+				this.gameService.bombsModeCounter = 1;
 				this.dialog.open(NotificationDialogComponent, {
 					width: '500px',
 					data: { title: "YOU WON", message: "Game finished!" }
 				});
+
 				record = {
 					win: true,
 					dimensions: `${this.gameService.areaColumns} x ${this.gameService.areaRows}`,
 					score: `${this.gameService.checkedCells} / ${this.gameService.cellsToCheck}`,
 					mode:'bomb'
 				}
+
 				this.recordService.createRecord(record).subscribe(res => {
 					console.log(res);
 				}, err => {
@@ -114,6 +121,7 @@ export class GameAreaComponent {
 				console.log(this.gameService.bombsModeCounter)
 			}
 		} else {
+			this.gameService.bombsModeCounter = 1;
 			this.dialog.open(NotificationDialogComponent, {
 				width: '500px',
 				data: { title: "GAME OVER", message: "There's no bomb!" }
