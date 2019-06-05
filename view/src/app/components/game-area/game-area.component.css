@@ -12,5 +12,6 @@
 }
 
 .box.checked {
+    pointer-events:none;
     background: rgb(103, 162, 37);
 }

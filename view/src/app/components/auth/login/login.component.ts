@@ -18,12 +18,12 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class LoginComponent implements OnInit {
   error:boolean = false;
+  success = false;
   username: string;
   password: string;
   matcher = new MyErrorStateMatcher();
-  hide = true;
   loading = false;
-  errorMessage:string;
+  notificationMessage:string;
   returnUrl: string;
   passowrdFormControl = new FormControl('', [
     Validators.required,
@@ -39,15 +39,19 @@ export class LoginComponent implements OnInit {
         .subscribe(
             data => {
               this.loading = false;
-              this.router.navigate([this.returnUrl]);
+              this.success = true;
+              this.notificationMessage = 'Welcome! Successfully loginned'
+              setTimeout(() =>{ 
+                this.router.navigate([this.returnUrl]);
+            }, 500);
 
             },
             error => {
               this.error = true;
               if(error.status==401){
-                this.errorMessage = error.status + ' ' + error.error.message;
+                this.notificationMessage = error.status + ' ' + error.error.message;
               }else{
-                this.errorMessage = error.status + ' ' + 'Server does not respond';
+                this.notificationMessage = error.status + ' ' + 'Server does not respond';
               }
               this.loading = false;
             });

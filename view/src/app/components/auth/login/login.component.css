@@ -39,7 +39,7 @@
     color:red;
     font-size:14px;
 }
-.error-message{
+.notification-message{
     position:absolute;
     width:100%!important;
     left:50%;
@@ -48,8 +48,7 @@
     text-align:center;
     border-radius: 1px;
     padding:5px 0 5px 0;
-    color: #000000;
-    background: #8e18122d;
+    color: #fff;
 }
 .no-data-container{
     min-height:250px;

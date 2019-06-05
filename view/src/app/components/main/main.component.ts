@@ -13,6 +13,7 @@ import { ContentDialogComponent } from '../modals/content-dialog/content-dialog.
 export class MainComponent implements OnInit {
 
   showBombsFlag: boolean = false;
+  bombMode:boolean = false;
   user: Observable<User>;
   gameData: Observable<any>
   constructor(public gameService: GameService, private userService: UsersService, public dialog: MatDialog) {

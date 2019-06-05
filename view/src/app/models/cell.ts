@@ -1,5 +1,6 @@
 export class Cell {
 	checked: boolean;
+	marked?:number;
 	hasBomb: boolean;
 	neighbors: number;
 	constructor (hasBomb: boolean) {

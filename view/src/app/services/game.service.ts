@@ -5,6 +5,8 @@ import { NotificationDialogComponent } from '../components/modals/notification-d
 import { RecordsService } from './records.service';
 import { Record } from '../models/record';
 
+
+
 @Injectable()
 export class GameService {
 
@@ -12,7 +14,7 @@ export class GameService {
 	public areaRows: number = 10;
 	public area: Cell[][];
 	public bombsCount: number = 25;
-
+	public bombsModeCounter: number = 1;
 	randomNumbers = [];
 
 	constructor(public dialog: MatDialog) {

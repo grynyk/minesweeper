@@ -5,4 +5,5 @@ export class Record {
     user_id?:string;
     dimensions?: string;
     score?:string;
+    mode:string;
 }

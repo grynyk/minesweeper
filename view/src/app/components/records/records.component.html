@@ -8,6 +8,11 @@
       <td mat-cell *matCellDef="let row">{{row.created_date | date}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="mode">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Mode</th>
+        <td mat-cell *matCellDef="let row">{{row.mode}}</td>
+      </ng-container>
+
     <ng-container matColumnDef="dimensions">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Dimensions</th>
       <td mat-cell *matCellDef="let row">{{row.dimensions}}</td>
