@@ -8,7 +8,7 @@ import { RecordsService } from '../../services/records.service';
   styleUrls: ['./records.component.scss']
 })
 export class RecordsComponent implements OnInit {
-  displayedColumns: string[] = ['created_date', 'dimensions', 'checked', 'win'];
+  displayedColumns: string[] = ['created_date', 'dimensions', 'score', 'win'];
   recordsData = new MatTableDataSource();
   
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;

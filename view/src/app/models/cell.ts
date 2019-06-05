@@ -1,4 +1,4 @@
-export class Box {
+export class Cell {
 	checked: boolean;
 	hasBomb: boolean;
 	neighbors: number;

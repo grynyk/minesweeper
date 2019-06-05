@@ -1,13 +1,13 @@
 <h3 mat-dialog-title fxLayout="row">
   <div fxFlex fxLayoutAlign="start center" style="font-size: 16px">
-   <strong> {{errorTitle | uppercase}}</strong>
+   <strong> {{data.title | uppercase}}</strong>
   </div>
   <div fxFlex="10" fxLayoutAlign="end center">
-      <button *ngIf="data.closeButton" mat-icon-button color="warn" mat-dialog-close><mat-icon>close</mat-icon></button>
+      <button mat-icon-button color="warn" mat-dialog-close><mat-icon>close</mat-icon></button>
   </div>
 </h3>
 
-  <p>{{errorMessage}}</p>
-<div mat-dialog-actions fxLayoutAlign="end none">
+  <p>{{data.message}}</p>
+<!-- <div mat-dialog-actions fxLayoutAlign="end none">
   <button color="primary" mat-raised-button (click)="Submit()" [mat-dialog-close]="true">{{buttonTitle}}</button>
-</div>
+</div> -->

@@ -13,14 +13,14 @@ import { ContentDialogComponent } from '../modals/content-dialog/content-dialog.
 export class MainComponent implements OnInit {
 
   showBombsFlag: boolean = false;
-  user:Observable<User>;
-  
-  constructor(public game: GameService, private userService: UsersService, public dialog: MatDialog) {
+  user: Observable<User>;
+  gameData: Observable<any>
+  constructor(public gameService: GameService, private userService: UsersService, public dialog: MatDialog) {
     this.user = userService.getMyData();
   }
 
   ngOnInit() {
-    this.game.gameEnded.subscribe((result:boolean) => {
+    this.gameService.gameEnded.subscribe((result:boolean) => {
         this.user = this.userService.getMyData();
     });
   }
@@ -32,7 +32,7 @@ export class MainComponent implements OnInit {
   openRecords() {
     this.dialog.open(ContentDialogComponent, {
       width: '800px',
-      data: { title: "RESULTS HISTORY", button: 'CLOSE' }
+      data: { title: "RESULTS HISTORY" }
     });
   }
 

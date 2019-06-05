@@ -20,42 +20,52 @@ export class GameAreaComponent {
 	@Input() neighbors: number;
 	@Input() showBombs: boolean = false;
 
-	constructor(public game: GameService, 
+	constructor(public gameService: GameService, 
 		private recordService: RecordsService,
 		private userService: UsersService,
 		public dialog: MatDialog) { }
 
 	revealGame(x, y) {
 		let record: Record;
-		if (this.game.reveal(x, y) === true) {
+		if (this.gameService.revealCell(x, y) === true) {
 			this.dialog.open(NotificationDialogComponent, {
 				width: '500px',
-				data: { title: "YOU WON", message: "Game finished!", button: 'CLOSE' }
+				data: { title: "YOU WON", message: "Game finished!" }
 			});
 			record = {
 				win: true,
-				dimensions: `${this.x}x${this.y}`,
-				checked: this.game.checked
+				dimensions: `${this.gameService.areaColumns} x ${this.gameService.areaRows}`,
+				score: `${this.gameService.checkedCells} / ${this.gameService.cellsToCheck}`
 			}
 			this.recordService.createRecord(record).subscribe(res => {
 				console.log(res);
-			})
+			}, err => {
+				this.dialog.open(NotificationDialogComponent, {
+					width: '500px',
+					data: { title: "Error", message: err.error }
+				});
+			});
 		}
 
-		if (this.game.reveal(x, y) === false) {
+		if (this.gameService.revealCell(x, y) === false) {
 			this.dialog.open(NotificationDialogComponent, {
 				width: '500px',
-				data: { title: "GAME OVER", message: "You stepped on a mine!", button: 'CLOSE' }
+				data: { title: "GAME OVER", message: "You stepped on a mine!" }
 			});
 			record = {
 				win: false,
-				dimensions: `${this.x}x${this.y}`,
-				checked: this.game.checked
+				dimensions: `${this.gameService.areaColumns} x ${this.gameService.areaRows}`,
+				score: `${this.gameService.checkedCells} / ${this.gameService.cellsToCheck}`
 			}
 			this.recordService.createRecord(record).subscribe(res => {
 				console.log(res);
-			})
-			this.game.initialize();
+			}, err => {
+				this.dialog.open(NotificationDialogComponent, {
+					width: '500px',
+					data: { title: "Error", message: err.error }
+				});
+			});
+			this.gameService.initializeArea();
 		}
 	}
 

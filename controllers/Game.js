@@ -15,7 +15,7 @@ const Game = {
     async createRecord(req, res) {
         try {
             await db.query(`INSERT INTO
-            game_results(id, created_date, win, user_id, dimensions, checked)
+            game_results(id, created_date, win, user_id, dimensions, score)
             VALUES($1, $2, $3, $4, $5, $6)
             returning *`, [
                 uuid.v4(),
@@ -23,7 +23,7 @@ const Game = {
                 req.body.win,
                 req.user.id,
                 req.body.dimensions,
-                req.body.checked,
+                req.body.score,
             ]);
 
             if(req.body.win) {

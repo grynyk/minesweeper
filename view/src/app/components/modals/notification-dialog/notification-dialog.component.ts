@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
@@ -7,18 +7,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './notification-dialog.component.html',
   styleUrls: ['./notification-dialog.component.scss']
 })
-export class NotificationDialogComponent implements OnInit {
+export class NotificationDialogComponent{
   constructor(
     public dialogRef: MatDialogRef<NotificationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
-  errorTitle: String = this.data.title;
-  errorMessage: String = this.data.message;
-  buttonTitle: String = this.data.button;
-  ngOnInit() {
 
-  }
-
-  Submit() {
-
-  }
 }

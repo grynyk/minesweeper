@@ -4,5 +4,5 @@ export class Record {
 	win: boolean;
     user_id?:string;
     dimensions?: string;
-    checked?:number;
+    score?:string;
 }
