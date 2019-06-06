@@ -11,7 +11,7 @@ import { UsersService } from 'src/app/services/users.service';
 	templateUrl: './game-area.component.html',
 	styleUrls: ['./game-area.component.css']
 })
-export class GameAreaComponent implements OnInit {
+export class GameAreaComponent {
 	@Input() x: number;
 	@Input() y: number;
 
@@ -29,16 +29,14 @@ export class GameAreaComponent implements OnInit {
 		private userService: UsersService,
 		public dialog: MatDialog) { }
 
-		ngOnInit() {
-			// asd
-		}
-
 	markCell(x, y) {
 		if(!this.gameService.area[y][x].marked) {
 			this.gameService.area[y][x].marked = 1;
 		} else if(this.gameService.area[y][x].marked === 1) {
 			this.gameService.area[y][x].marked = 2;
+			this.countBombs(x,y)
 		} else if(this.gameService.area[y][x].marked === 2) {
+			this.gameService.bombsModeCounter = 1;
 			this.gameService.area[y][x].marked = null;
 		}
 
@@ -86,6 +84,7 @@ export class GameAreaComponent implements OnInit {
 					data: { title: "Error", message: err.error }
 				});
 			});
+			this.gameService.bombsModeCounter = 1;
 			this.gameService.initializeArea();
 		}
 	}
@@ -93,7 +92,6 @@ export class GameAreaComponent implements OnInit {
 	countBombs(x,y) {
 		let record: Record;
 		if (this.gameService.area[y][x].hasBomb) {
-			this.gameService.area[y][x].checked = true;
 			if (+this.gameService.bombsCount === +this.gameService.bombsModeCounter) {
 				this.gameService.bombsModeCounter = 1;
 				this.dialog.open(NotificationDialogComponent, {
@@ -120,27 +118,29 @@ export class GameAreaComponent implements OnInit {
 				this.gameService.bombsModeCounter+=1;
 				console.log(this.gameService.bombsModeCounter)
 			}
-		} else {
-			this.gameService.bombsModeCounter = 1;
-			this.dialog.open(NotificationDialogComponent, {
-				width: '500px',
-				data: { title: "GAME OVER", message: "There's no bomb!" }
-			});
-			record = {
-				win: false,
-				dimensions: `${this.gameService.areaColumns} x ${this.gameService.areaRows}`,
-				score: `${this.gameService.checkedCells} / ${this.gameService.cellsToCheck}`,
-				mode:'bomb'
-			}
-			this.recordService.createRecord(record).subscribe(res => {
-				console.log(res);
-			}, err => {
-				this.dialog.open(NotificationDialogComponent, {
-					width: '500px',
-					data: { title: "Error", message: err.error }
-				});
-			});
-			this.gameService.initializeArea();
-		}
+		} 
+		
+		// else {
+		// 	this.gameService.bombsModeCounter = 1;
+		// 	this.dialog.open(NotificationDialogComponent, {
+		// 		width: '500px',
+		// 		data: { title: "GAME OVER", message: "There's no bomb!" }
+		// 	});
+		// 	record = {
+		// 		win: false,
+		// 		dimensions: `${this.gameService.areaColumns} x ${this.gameService.areaRows}`,
+		// 		score: `${this.gameService.checkedCells} / ${this.gameService.cellsToCheck}`,
+		// 		mode:'bomb'
+		// 	}
+		// 	this.recordService.createRecord(record).subscribe(res => {
+		// 		console.log(res);
+		// 	}, err => {
+		// 		this.dialog.open(NotificationDialogComponent, {
+		// 			width: '500px',
+		// 			data: { title: "Error", message: err.error }
+		// 		});
+		// 	});
+			
+		// }
 	}
 }

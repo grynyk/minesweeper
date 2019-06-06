@@ -34,10 +34,9 @@
 				<div fxLayout="column" class="info" fxLayoutAlign="center center">
 						<span>There are {{gameService.bombsCount}} bombs</span>
 						<span>Checked cells: {{gameService.checkedCells}}</span>
-						<mat-slide-toggle [(ngModel)]="bombMode">Bomb mode</mat-slide-toggle>
 					</div>
 					<div *ngFor="let set of gameService.area; let y = index">
-						<app-game-area *ngFor="let item of set; let x = index" [x]="x" [y]="y" [checked]="item.checked" [marked]="item.marked" [hasBomb]="item.hasBomb" [showBombs]="showBombsFlag" [bombMode]="bombMode"
+						<app-game-area *ngFor="let item of set; let x = index" [x]="x" [y]="y" [checked]="item.checked" [marked]="item.marked" [hasBomb]="item.hasBomb" [showBombs]="showBombsFlag"
 						 [neighbors]="item.neighbors"></app-game-area>
 					</div>
 			
