@@ -38,6 +38,7 @@ export class GameService {
 	}
 
 	public initializeArea() {
+		this.areaRows = this.areaColumns;
 		this.area = [];
 		this.randomNumbers = [];
 		try {
@@ -76,8 +77,6 @@ export class GameService {
 				data: { title: "ERROR" , message: err, button:'CLOSE' }
 			  });
 		  }
-
-
 	}
 
 	private fillWithBombs(rand1, rand2) {

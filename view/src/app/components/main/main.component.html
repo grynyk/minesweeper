@@ -46,18 +46,12 @@
 					<div class="game-config-container" fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
 			
 							<mat-form-field appearance="outline">
-								<mat-label>COLUMNS</mat-label>
-								<input matInput type="number" name="columns" min="0" max="5" placeholder="Columns" [(ngModel)]="gameService.areaColumns">
+								<mat-label>COLS & ROWS</mat-label>
+								<input matInput type="number" name="columns" min="0" placeholder="Columns" [(ngModel)]="gameService.areaColumns">
 							</mat-form-field>
-					
-							<mat-form-field appearance="outline">
-								<mat-label>ROWS</mat-label>
-								<input matInput type="number" name="rows" min="0" max="5" placeholder="Rows" [(ngModel)]="gameService.areaRows">
-							</mat-form-field>
-					
 							<mat-form-field appearance="outline">
 									<mat-label>BOMBS</mat-label>
-									<input matInput type="number" name="bombs" min="0" max="5" placeholder="Bombs" [(ngModel)]="gameService.bombsCount">
+									<input matInput type="number" name="bombs" min="0" placeholder="Bombs" [(ngModel)]="gameService.bombsCount">
 								</mat-form-field>
 					
 							<button mat-raised-button (click)="gameService.initializeArea()" class="newgame-btn" [disabled]="gameService.areaColumns > 10 || gameService.areaRows > 10 || gameService.bombsCount < 1">
