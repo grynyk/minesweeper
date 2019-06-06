@@ -19,7 +19,7 @@ import { GameService } from './services/game.service';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthService } from './services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UsersService } from './services/users.service';
 import { PasswordMatcherDirective } from './directives/password-match.directive';
@@ -44,7 +44,7 @@ import { ContentDialogComponent } from './components/modals/content-dialog/conte
     PasswordMatcherDirective,
     NotificationDialogComponent,
     RecordsComponent,
-    ContentDialogComponent,
+    ContentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,7 @@ import { ContentDialogComponent } from './components/modals/content-dialog/conte
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
-    FlexLayoutModule,
+    FlexLayoutModule
   ],
   providers: [
     {
@@ -80,10 +80,7 @@ import { ContentDialogComponent } from './components/modals/content-dialog/conte
     AuthService,
     UsersService
   ],
-  entryComponents: [
-    ContentDialogComponent,
-    NotificationDialogComponent
-  ],
-  bootstrap: [AppComponent]
+  entryComponents: [ ContentDialogComponent, NotificationDialogComponent ],
+  bootstrap: [ AppComponent ]
 })
-export class AppModule { }
+export class AppModule {}

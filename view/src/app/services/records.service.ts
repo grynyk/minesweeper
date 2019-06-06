@@ -8,7 +8,7 @@ import { Record } from '../models/record';
 export class RecordsService {
     constructor(private httpClient: HttpClient) { }
 
-    createRecord(record:Record) {
+    createRecord(record: Record) {
         return this.httpClient.post('/api/game/records', record);
     }
 

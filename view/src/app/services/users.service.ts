@@ -3,17 +3,16 @@ import { HttpClient } from '@angular/common/http';
 
 import { User } from '../models/user';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class UsersService {
     constructor(private httpClient: HttpClient) { }
 
-    createUser(user:User) {
+    createUser(user: User) {
         return this.httpClient.post('/api/users/register', user);
     }
 
     getMyData() {
-        return this.httpClient.get('/api/users/getMyData').pipe(map((response:User) => response));
+        return this.httpClient.get('/api/users/getMyData').pipe(map((response: User) => response));
     }
 }

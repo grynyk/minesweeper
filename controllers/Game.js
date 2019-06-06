@@ -6,7 +6,7 @@ import Middleware from './Middleware';
 const Game = {
     async getAll(req, res) {
         try {
-            const { rows, rowCount } = await db.query('SELECT * FROM game_results WHERE user_id = $1 ORDER BY created_date ASC', [req.user.id]);
+            const { rows, rowCount } = await db.query('SELECT * FROM game_results WHERE user_id = $1 ORDER BY created_date DESC', [req.user.id]);
             return res.status(200).send({ rows, rowCount });
         } catch (error) {
             return res.status(400).send(error);

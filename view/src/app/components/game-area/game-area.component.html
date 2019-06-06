@@ -1,15 +1,16 @@
-<span class="box" [class.checked]="checked" (dblclick)="revealArea(x,y)" (click)="markCell(x,y)" [style.backgroundColor]="hasBomb && showBombs ? '#4F2525' :''">
+<span class="box" [class.checked]="checked" (dblclick)="revealArea(x,y)" (click)="markCell(x,y)"
+	[style.backgroundColor]="hasBomb && showBombs ? '#4F2525' :''">
 	<span *ngIf="checked">
 		&nbsp;{{neighbors}}&nbsp;
 	</span>
 	<span *ngIf="!checked">
 		<span *ngIf="marked;else notMarked">
-				<span [matTooltip]="marked==1 ? 'Here might be a bomb !' : 'Here is a bomb !'">
-					&nbsp;{{marked}}&nbsp;
-				</span>
+			<span [matTooltip]="marked==1 ? 'Here might be a bomb !' : 'Here is a bomb !'">
+				&nbsp;{{marked}}&nbsp;
+			</span>
 		</span>
 		<ng-template #notMarked>
-				&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;
 		</ng-template>
 	</span>
 </span>

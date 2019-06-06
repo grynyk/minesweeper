@@ -11,44 +11,34 @@ import { Validators, FormControl } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  user: User;
 
-  public currentDate = new Date();
-  public minBirthdate = this.currentDate.setFullYear(this.currentDate.getFullYear()-18);
-  constructor(private router: Router,
-    private authService: AuthService, private usersService: UsersService) {
+  user: User;
+  username = new FormControl('', [Validators.required]);
+  error = false;
+  errorMessage: string;
+  loading = false;
+
+  constructor(private router: Router, private authService: AuthService, private usersService: UsersService) {
   }
 
-  error: boolean = false;
-  errorMessage: String;
-  loading = false;
+  ngOnInit() {
+    this.user = new User();
+    this.authService.logout();
+  }
+
   Submit() {
-    console.log(this.user);
     this.loading = true;
     this.usersService.createUser(this.user)
-      .subscribe(
-        data => {
+      .subscribe(res => {
           this.router.navigate(['/login']);
-        },
-        error => {
+        }, error => {
           this.error = true;
-          if(error.status==409){
-            this.errorMessage = error.error;
-          }else{
-            this.errorMessage = error.status + ' ' + 'Server is not responding';
-          }
+          this.errorMessage = error.status + ' ' + error.error;
           this.loading = false;
         });
   }
 
-
-  username = new FormControl('', [Validators.required]);
-
   getErrorMessage() {
     return this.username.hasError('required') ? 'You must enter a value' : '';
-  }
-  ngOnInit() {
-    this.user = new User();
-    this.authService.logout();
   }
 }

@@ -46,8 +46,12 @@
 					<div class="game-config-container" fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px">
 			
 							<mat-form-field appearance="outline">
-								<mat-label>COLS & ROWS</mat-label>
+								<mat-label>COLS</mat-label>
 								<input matInput type="number" name="columns" min="0" placeholder="Columns" [(ngModel)]="gameService.areaColumns">
+							</mat-form-field>
+							<mat-form-field appearance="outline">
+								<mat-label>ROWS</mat-label>
+								<input matInput type="number" name="columns" min="0" placeholder="Columns" [(ngModel)]="gameService.areaRows">
 							</mat-form-field>
 							<mat-form-field appearance="outline">
 									<mat-label>BOMBS</mat-label>
