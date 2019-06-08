@@ -1,4 +1,5 @@
 <main>
+    <span class="logo-text">MINESWEEPER</span>
     <mat-card class="center">
         <div class="error-message" *ngIf="error==true">
             {{errorMessage}}
@@ -25,7 +26,7 @@
                     <span *ngIf="(passGroup.invalid)&&(confirmPassword.touched)" fxLayoutAlign="start none"
                         class="password-mismatch">passwords does not match</span>
                 </div>
-                <button mat-raised-button color="primary" [disabled]="!registerForm.form.valid" class="submit-btn"
+                <button mat-raised-button color="accent" [disabled]="!registerForm.form.valid" class="submit-btn"
                     type="submit">Register</button>
 
             </form>

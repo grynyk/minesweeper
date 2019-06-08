@@ -38,9 +38,11 @@ export class TokenInterceptor implements HttpInterceptor {
     this.errorAppeared = false;
     const loginData = JSON.parse(localStorage.getItem('currentUser'));
     if (loginData) {
+      const xtoken = JSON.parse(localStorage.getItem('currentUser')).token;
       const clonedRequest = request.clone({
         setHeaders: {
-          'x-access-token': JSON.parse(localStorage.getItem('currentUser')).token
+          'Content-Type': 'application/json',
+          'x-access-token': xtoken
         }
       });
       return next.handle(clonedRequest).pipe(catchError(err => this.handleError(err)));

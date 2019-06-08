@@ -58,9 +58,28 @@
 									<input matInput type="number" name="bombs" min="0" placeholder="Bombs" [(ngModel)]="gameService.bombsCount">
 								</mat-form-field>
 					
-							<button mat-raised-button (click)="gameService.initializeArea()" class="newgame-btn" [disabled]="gameService.areaColumns > 10 || gameService.areaRows > 10 || gameService.bombsCount < 1">
+							<button mat-raised-button (click)="gameService.initializeArea()" color="accent" class="newgame-btn" [disabled]="gameService.areaColumns > 10 || gameService.areaRows > 10 || gameService.bombsCount < 1">
 								<mat-icon>play_circle_outline</mat-icon> NEW GAME
 							</button>
 						</div>
 	</mat-card-content>
+		  <div class="footer">
+			<div id="button">
+
+			</div>
+		  <div id="container">
+		  <div id="cont">
+		  <div class="footer-center">
+				<div class="footer-content" fxLayout="column">
+						<div>
+							<a class="github-button" href="https://github.com/grynyk/minesweeper" aria-label="Follow @grynyk on GitHub">by @grynyk</a>
+						</div>
+						<div style="font-size:0.7em">
+								©2019
+						</div>
+				</div>
+		  </div>
+		  </div>
+		  </div>
+		  </div>
 </mat-card>

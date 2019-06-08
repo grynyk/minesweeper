@@ -1,3 +1,19 @@
+.logo-text{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    position:absolute;
+    left:50%;
+    top:10%;
+    transform: translate(-50%, -50%);
+    text-align:center;
+    font-size: 50px;
+    color: rgba(255,255,255,0.3);
+}
+
 .center {
     position:absolute;
     left:50%;

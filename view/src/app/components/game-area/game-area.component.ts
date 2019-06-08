@@ -43,7 +43,7 @@ export class GameAreaComponent {
     if (this.gameService.revealCell(x, y) === true) {
       this.dialog.open(NotificationDialogComponent, {
         width: '500px',
-        data: { title: 'YOU WON', message: 'Game finished!' }
+        data: { title: 'YOU ARE THE WINNER', message: 'ALL THE SAFE BLOCKS ARE OPENED' }
       });
       record = {
         win: true,
@@ -67,7 +67,7 @@ export class GameAreaComponent {
     if (this.gameService.revealCell(x, y) === false) {
       this.dialog.open(NotificationDialogComponent, {
         width: '500px',
-        data: { title: 'GAME OVER', message: 'You stepped on a mine!' }
+        data: { title: 'GAME OVER !', message: 'YOU STEPPED ON MINE !' }
       });
       record = {
         win: false,
@@ -98,7 +98,7 @@ export class GameAreaComponent {
         this.gameService.bombsModeCounter = 1;
         this.dialog.open(NotificationDialogComponent, {
           width: '500px',
-          data: { title: 'YOU WON', message: 'Game finished!' }
+          data: { title: 'YOU ARE THE WINNER', message: 'ALL THE SAFE BLOCKS ARE OPENED' }
         });
 
         record = {

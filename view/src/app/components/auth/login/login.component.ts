@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material';
 import { AuthService } from '../../../services/auth.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
   passowrdFormControl = new FormControl('', [
     Validators.required,
   ]);
-  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService, private snackBar: MatSnackBar) {
   }
 
   Login() {
@@ -37,8 +38,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.loading = false;
-          this.success = true;
-          this.notificationMessage = 'Welcome! Successfully loginned';
+          this.openSnackBar('Welcome! Successfully loginned', 'CLOSE')
           setTimeout(() => {
             this.router.navigate([this.returnUrl]);
           }, 400);
@@ -51,9 +51,14 @@ export class LoginComponent implements OnInit {
         });
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+
   ngOnInit() {
     this.authService.logout();
     this.returnUrl = this.route.snapshot.queryParams[this.returnUrl] || '/';
   }
-
 }

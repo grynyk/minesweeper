@@ -6,6 +6,7 @@ import { AppRouting } from './app.routing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule, MatButtonModule, MatTooltipModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -58,6 +59,7 @@ import { ContentDialogComponent } from './components/modals/content-dialog/conte
     MatSlideToggleModule,
     MatTooltipModule,
     MatSortModule,
+    MatSnackBarModule,
     MatPaginatorModule,
     MatFormFieldModule,
     MatTableModule,

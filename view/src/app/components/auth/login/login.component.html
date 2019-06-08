@@ -1,4 +1,4 @@
-<main>
+<main class="body">
     <span class="logo-text">MINESWEEPER</span>
     <mat-card class="center">
         <div class="notification-message" *ngIf="error == true || success == true"
@@ -23,7 +23,7 @@
                         <strong>is required</strong>
                     </mat-error>
                 </mat-form-field>
-                <button mat-raised-button color="primary" [disabled]="!f.form.valid" class="submit-btn"
+                <button mat-raised-button color="accent" [disabled]="!f.form.valid" class="submit-btn"
                     type="submit">Login</button>
             </form>
             <mat-card-footer class="card-footer">Not registered yet ?<br><a routerLink='/registration'>Registration</a>
