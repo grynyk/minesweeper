@@ -1,6 +1,6 @@
 # ANGULAR MINESWEEPER :triangular_flag_on_post: :bomb:
 
->![responsive web app](https://github.com/grynyk/minesweeper/blob/master/view/src/assets/minesweeper_scr.jpg)
+>![responsive web app](https://github.com/grynyk/minesweeper/blob/master/view/src/assets/game_scr.jpg)
 
 **application which allows user to** 
 login, register, observe the results history, configure gameboard dimensions, configure number of mines, mark specific box with flags "it can be a mine" or "it must be a mine" using single click or reveal boxes with double click.
