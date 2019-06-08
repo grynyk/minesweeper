@@ -3,10 +3,7 @@
 >![responsive web app](https://github.com/grynyk/minesweeper/blob/master/view/src/assets/minesweeper_scr.jpg)
 
 **application which allows user to** 
-Login, register, observe the results history, configure gameboard dimensions, configure number of mines, mark specific box with flags "it can be a mine" or "it must be a mine" using single click or reveal boxes with double click.
-
-**Admin-panel allows to:**
-View all users list, create/update/activate/block/unblock users, view users details, view users transactions, view all transactions list in system, export specific transactions details to .pdf, view system statistics.
+login, register, observe the results history, configure gameboard dimensions, configure number of mines, mark specific box with flags "it can be a mine" or "it must be a mine" using single click or reveal boxes with double click.
 
 # [DEMO](https://ng-minesweeper-app.herokuapp.com/)
 
